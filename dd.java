@@ -47,7 +47,19 @@ public class dd {
         }
         
         System.out.println("numero de iteraçoes: " + iterations);
-        System.out.println("tempo: " + (endTime - startTime) / 1e6);
+        System.out.println("tempo: " + (endTime - startTime) / 1e6 + " ms");
+        
+        System.out.println("Digite o valor de x para calcular P(x):");
+        double px = scanner.nextDouble();
+        
+        double result = dividedDifferenceTable[0][0];
+        double productTerm = 1.0;
+        for (int i = 1; i < n; i++) {
+            productTerm *= (px - x[i - 1]);
+            result += dividedDifferenceTable[0][i] * productTerm;
+        }
+        
+        System.out.printf("P(%f) = %f\n", px, result);
         
         scanner.close();
     }
