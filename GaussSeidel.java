@@ -5,26 +5,26 @@ public class GaussSeidel {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
 
-        System.out.print("Digite o número de variáveis: ");
+        System.out.print("digite quantas variaveis ");
         int n = s.nextInt();
 
         double[][] A = new double[n][n];
         double[] b = new double[n];
         double[] x0 = new double[n];
 
-        System.out.println("digite os coeficientes da matriz A:");
+        System.out.println("digite a ");
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 A[i][j] = s.nextDouble();
             }
         }
 
-        System.out.println("digite os elementos do vetor b:");
+        System.out.println("digite b ");
         for (int i = 0; i < n; i++) {
             b[i] = s.nextDouble();
         }
 
-        System.out.println("digite os valores iniciais do vetor x0:");
+        System.out.println("digite x0");
         for (int i = 0; i < n; i++) {
             x0[i] = s.nextDouble();
         }
@@ -38,11 +38,11 @@ public class GaussSeidel {
 
         double execTime = (endTime - startTime) / 1e6;
 
-        System.out.println("soluçao:");
+        System.out.println(":");
         for (double v : solucao) {
             System.out.printf("%.6f ", v);
         }
-        System.out.println("\nTempo de execuçao: " + execTime);
+        System.out.println("\ntempo " + execTime);
 
         s.close();
     }
@@ -54,6 +54,7 @@ public class GaussSeidel {
         for (int k = 0; k < maxIterations; k++) {
             double[] xOld = x.clone();
 
+            System.out.println("iteraçao " + (k + 1) + ":");
             for (int i = 0; i < n; i++) {
                 double sum = 0;
                 for (int j = 0; j < n; j++) {
@@ -61,10 +62,13 @@ public class GaussSeidel {
                         sum += A[i][j] * x[j];
                     }
                 }
-                x[i] = (b[i] - sum) / A[i][i];
+                double x_new = (b[i] - sum) / A[i][i];
+                System.out.printf("x[%d] atualizado de %.6f para %.6f\n", i, x[i], x_new);
+                x[i] = x_new;
             }
+
             if (normInf(x, xOld) < tol) {
-                System.out.println("numero de iteraçoes " + (k + 1));
+                System.out.println("numero " + (k + 1));
                 return x;
             }
         }
